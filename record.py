@@ -28,7 +28,7 @@ except ImportError:
 
 WEAPON_NAMES = ['sword', 'dagger', 'spear', 'axe', 'hammer']
 ALL_COMBOS = list(itertools.combinations(WEAPON_NAMES, 2))
-COMBO_TRACKER_FILE = "used_weapon_combos.json"
+COMBO_TRACKER_FILE = "used_combos.json"
 
 
 def pick_weapon(label: str) -> str:
@@ -362,7 +362,7 @@ def main():
         ('hammer', 'axe'), ('hammer', 'sword'), ('hammer', 'spear'),
         ('sword', 'spear'), ('sword', 'axe'), ('spear', 'axe')
     ]
-    tracker_file = "used_combos_12.json"
+    tracker_file = "used_combos.json"
 
     MAX_VIDEO_DURATION = 45.0   # seconds — videos over this are discarded and retried
     MAX_RETRIES = 3             # attempts per combo before moving on

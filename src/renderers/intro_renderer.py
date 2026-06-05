@@ -97,39 +97,6 @@ class IntroRenderer:
                 f1_bright, f2_bright,
             )
 
-            # ── Big countdown number ─────────────────────────────────────
-            # Pop-in: starts at 1.5× scale, settles to 1.0× in first 20% of duration.
-            # Shrinks slightly toward end to build tension before the next beep.
-            pop    = max(0.0, 1.0 - min(1.0, progress * 5))   # 0→1 during first 20%
-            shrink = min(0.08, progress * 0.08)                # gentle shrink toward end
-            scale  = 1.0 + pop * 0.5 - shrink
- 
-            num_surf = get_rendered_text(countdown_text, font_large, WHITE)
-            new_w = max(1, int(num_surf.get_width()  * scale))
-            new_h = max(1, int(num_surf.get_height() * scale))
-            num_surf = pygame.transform.scale(num_surf, (new_w, new_h))
-            num_rect = num_surf.get_rect(center=(cx, cy))
- 
-            # Glow halo in fighter colors — alternates between f1/f2 each stage
-            glow_primary   = f1_color if stage % 2 == 0 else f2_color
-            glow_secondary = f2_color if stage % 2 == 0 else f1_color
-            for glow_color, alpha_val in [(glow_primary, 90), (glow_secondary, 55)]:
-                glow = get_rendered_text(countdown_text, font_large, glow_color)
-                glow = pygame.transform.scale(glow, (new_w, new_h))
-                glow.set_alpha(alpha_val)
-                for dx, dy in [(-5, 0), (5, 0), (0, -5), (0, 5),
-                                (-4, -4), (4, 4), (-4, 4), (4, -4)]:
-                    screen.blit(glow, num_rect.move(dx, dy))
- 
-            # Drop shadow
-            shadow = get_rendered_text(countdown_text, font_large, BLACK)
-            shadow = pygame.transform.scale(shadow, (new_w, new_h))
-            shadow.set_alpha(160)
-            screen.blit(shadow, num_rect.move(4, 4))
- 
-            # Main number
-            screen.blit(num_surf, num_rect)
-
             return 
 
         # ── Stage 3: FIGHT ──────────────────────────────────────────────
